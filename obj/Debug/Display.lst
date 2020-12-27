@@ -1,0 +1,1435 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
+                      00004 ; This file was generated Fri Dec 27 16:45:01 2019
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC port for the 14-bit core
+                      00007 ;--------------------------------------------------------
+                      00008         .file   "Display.c"
+                      00009         list    p=16f877a
+                      00010         radix dec
+                      00011         include "p16f877a.inc"
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Aug 07 2014
+                      00005 ;  MPASM PIC16F877A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2014 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00567         LIST
+                      00012 ;--------------------------------------------------------
+                      00013 ; external declarations
+                      00014 ;--------------------------------------------------------
+  0000                00015         extern  _OS_Init
+  0000                00016         extern  _OS_Start
+  0000                00017         extern  _OS_GoToSleep
+  0000                00018         extern  _OS_Update
+  0000                00019         extern  _OS_Schedule
+  0000                00020         extern  _SSD_Init
+  0000                00021         extern  _SSD_GetState
+  0000                00022         extern  _SSD_SetState
+  0000                00023         extern  _SSD_GetSymbol
+  0000                00024         extern  _SSD_SetSymbol
+  0000                00025         extern  _SSD_Update
+  0000                00026         extern  _CNT_Init
+  0000                00027         extern  _CNT_GetCounter
+  0000                00028         extern  _CNT_Update
+  0000                00029         extern  __divuint
+  0000                00030         extern  __moduint
+  0000                00031         extern  _STATUSbits
+  0000                00032         extern  _PORTAbits
+  0000                00033         extern  _PORTBbits
+  0000                00034         extern  _PORTCbits
+  0000                00035         extern  _PORTDbits
+  0000                00036         extern  _PORTEbits
+  0000                00037         extern  _INTCONbits
+  0000                00038         extern  _PIR1bits
+  0000                00039         extern  _PIR2bits
+  0000                00040         extern  _T1CONbits
+  0000                00041         extern  _T2CONbits
+  0000                00042         extern  _SSPCONbits
+  0000                00043         extern  _CCP1CONbits
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+  0000                00044         extern  _RCSTAbits
+  0000                00045         extern  _CCP2CONbits
+  0000                00046         extern  _ADCON0bits
+  0000                00047         extern  _OPTION_REGbits
+  0000                00048         extern  _TRISAbits
+  0000                00049         extern  _TRISBbits
+  0000                00050         extern  _TRISCbits
+  0000                00051         extern  _TRISDbits
+  0000                00052         extern  _TRISEbits
+  0000                00053         extern  _PIE1bits
+  0000                00054         extern  _PIE2bits
+  0000                00055         extern  _PCONbits
+  0000                00056         extern  _SSPCON2bits
+  0000                00057         extern  _SSPSTATbits
+  0000                00058         extern  _TXSTAbits
+  0000                00059         extern  _CMCONbits
+  0000                00060         extern  _CVRCONbits
+  0000                00061         extern  _ADCON1bits
+  0000                00062         extern  _EECON1bits
+  0000                00063         extern  _INDF
+  0000                00064         extern  _TMR0
+  0000                00065         extern  _PCL
+  0000                00066         extern  _STATUS
+  0000                00067         extern  _FSR
+  0000                00068         extern  _PORTA
+  0000                00069         extern  _PORTB
+  0000                00070         extern  _PORTC
+  0000                00071         extern  _PORTD
+  0000                00072         extern  _PORTE
+  0000                00073         extern  _PCLATH
+  0000                00074         extern  _INTCON
+  0000                00075         extern  _PIR1
+  0000                00076         extern  _PIR2
+  0000                00077         extern  _TMR1
+  0000                00078         extern  _TMR1L
+  0000                00079         extern  _TMR1H
+  0000                00080         extern  _T1CON
+  0000                00081         extern  _TMR2
+  0000                00082         extern  _T2CON
+  0000                00083         extern  _SSPBUF
+  0000                00084         extern  _SSPCON
+  0000                00085         extern  _CCPR1
+  0000                00086         extern  _CCPR1L
+  0000                00087         extern  _CCPR1H
+  0000                00088         extern  _CCP1CON
+  0000                00089         extern  _RCSTA
+  0000                00090         extern  _TXREG
+  0000                00091         extern  _RCREG
+  0000                00092         extern  _CCPR2
+  0000                00093         extern  _CCPR2L
+  0000                00094         extern  _CCPR2H
+  0000                00095         extern  _CCP2CON
+  0000                00096         extern  _ADRESH
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+  0000                00097         extern  _ADCON0
+  0000                00098         extern  _OPTION_REG
+  0000                00099         extern  _TRISA
+  0000                00100         extern  _TRISB
+  0000                00101         extern  _TRISC
+  0000                00102         extern  _TRISD
+  0000                00103         extern  _TRISE
+  0000                00104         extern  _PIE1
+  0000                00105         extern  _PIE2
+  0000                00106         extern  _PCON
+  0000                00107         extern  _SSPCON2
+  0000                00108         extern  _PR2
+  0000                00109         extern  _SSPADD
+  0000                00110         extern  _SSPSTAT
+  0000                00111         extern  _TXSTA
+  0000                00112         extern  _SPBRG
+  0000                00113         extern  _CMCON
+  0000                00114         extern  _CVRCON
+  0000                00115         extern  _ADRESL
+  0000                00116         extern  _ADCON1
+  0000                00117         extern  _EEDATA
+  0000                00118         extern  _EEADR
+  0000                00119         extern  _EEDATH
+  0000                00120         extern  _EEADRH
+  0000                00121         extern  _EECON1
+  0000                00122         extern  _EECON2
+                      00123 
+  0000                00124         extern PSAVE
+  0000                00125         extern SSAVE
+  0000                00126         extern WSAVE
+  0000                00127         extern STK12
+  0000                00128         extern STK11
+  0000                00129         extern STK10
+  0000                00130         extern STK09
+  0000                00131         extern STK08
+  0000                00132         extern STK07
+  0000                00133         extern STK06
+  0000                00134         extern STK05
+  0000                00135         extern STK04
+  0000                00136         extern STK03
+  0000                00137         extern STK02
+  0000                00138         extern STK01
+  0000                00139         extern STK00
+                      00140 ;--------------------------------------------------------
+                      00141 ; global declarations
+                      00142 ;--------------------------------------------------------
+  0000                00143         global  _DISP_Update
+  0000                00144         global  _DISP_Init
+                      00145 
+                      00146 ;--------------------------------------------------------
+                      00147 ; global definitions
+                      00148 ;--------------------------------------------------------
+                      00149 ;--------------------------------------------------------
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE  4
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00150 ; absolute symbol definitions
+                      00151 ;--------------------------------------------------------
+                      00152 ;--------------------------------------------------------
+                      00153 ; compiler-defined variables
+                      00154 ;--------------------------------------------------------
+                      00155 UDL_Display_0   udata
+0000                  00156 r0x1004 res     1
+0001                  00157 r0x1003 res     1
+0002                  00158 r0x1005 res     1
+0003                  00159 _DISP_Update_DISP_Update_Counter_1_20   res     1
+0004                  00160 _DISP_Update_TestCount_1_20     res     2
+                      00161 ;--------------------------------------------------------
+                      00162 ; initialized data
+                      00163 ;--------------------------------------------------------
+                      00164 ;--------------------------------------------------------
+                      00165 ; overlayable items in internal ram 
+                      00166 ;--------------------------------------------------------
+                      00167 ;       udata_ovr
+                      00168 ;--------------------------------------------------------
+                      00169 ; code
+                      00170 ;--------------------------------------------------------
+                      00171 code_Display    code
+                      00172 ;***
+                      00173 ;  pBlock Stats: dbName = C
+                      00174 ;***
+                      00175 ;entry:  _DISP_Update   ;Function start
+                      00176 ; 2 exit points
+                      00177 ;has an exit
+                      00178 ;functions called:
+                      00179 ;   _CNT_GetCounter
+                      00180 ;   __divuint
+                      00181 ;   _SSD_SetSymbol
+                      00182 ;   _CNT_GetCounter
+                      00183 ;   __moduint
+                      00184 ;   __divuint
+                      00185 ;   _SSD_SetSymbol
+                      00186 ;   _CNT_GetCounter
+                      00187 ;   __moduint
+                      00188 ;   _SSD_SetSymbol
+                      00189 ;   _CNT_GetCounter
+                      00190 ;   __divuint
+                      00191 ;   _SSD_SetSymbol
+                      00192 ;   _CNT_GetCounter
+                      00193 ;   __moduint
+                      00194 ;   __divuint
+                      00195 ;   _SSD_SetSymbol
+                      00196 ;   _CNT_GetCounter
+                      00197 ;   __moduint
+                      00198 ;   _SSD_SetSymbol
+                      00199 ;6 compiler assigned registers:
+                      00200 ;   r0x1003
+                      00201 ;   STK00
+                      00202 ;   r0x1004
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE  5
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00203 ;   STK02
+                      00204 ;   STK01
+                      00205 ;   r0x1005
+                      00206 ;; Starting pCode block
+                      00207 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00208 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      00209 ;; ***  genLabel  2763
+                      00210 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00211 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2340:genFunction *{*
+                      00212 ;; ***  genFunction  2342 curr label offset=4previous max_key=0 
+0000                  00213 _DISP_Update    ;Function start
+                      00214 ; 2 exit points
+                      00215 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00216 ;; ***  genPlus  611
+                      00217 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:612:genPlus *{*
+                      00218 ;; ***  aopForSym 315
+                      00219 ;;      327 sym->rname = _DISP_Update_DISP_Update_Counter_1_20, size = 1
+                      00220 ;;      575
+                      00221 ;;      line = 618 result AOP_DIR=_DISP_Update_DISP_Update_Counter_1_20, size=1, left AOP_DIR=_DISP_Upda
+                            te_DISP_Update_Counter_1_20, size=1, right AOP_LIT=0x05, size=1
+                      00222 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:142:genPlusIncr *{*
+                      00223 ;; ***  genPlusIncr  144
+                      00224 ;;      result AOP_DIR, left AOP_DIR, right AOP_LIT
+                      00225 ;;      genPlusIncr  156
+                      00226 ;;      adding lit to something. size 1
+                      00227 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:269:genAddLit *{*
+                      00228 ;; ***  genAddLit  270
+                      00229 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:233:genAddLit2byte *{*
+                      00230 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:245:genAddLit2byte
+                      00231         .line   28; "Display.c" DISP_Update_Counter += OS_TICK_MS;
+0000   3005           00232         MOVLW   0x05
+                      00233 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:246:genAddLit2byte
+                      00234 ;;      1009
+                      00235 ;;      1028  _DISP_Update_DISP_Update_Counter_1_20   offset=0
+0001   ???? ????      00236         BANKSEL _DISP_Update_DISP_Update_Counter_1_20
+0003   07??           00237         ADDWF   _DISP_Update_DISP_Update_Counter_1_20,F
+                      00238 ;; ***  addSign  861
+                      00239 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00240 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00241 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:3583:genCmpLt *{*
+                      00242 ;; ***  genCmpLt  3584
+                      00243 ;; ***  aopForSym 315
+                      00244 ;;      327 sym->rname = _DISP_Update_DISP_Update_Counter_1_20, size = 1
+                      00245 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:3294:genCmp *{*
+                      00246 ;;unsigned compare: left < lit(0x14=20), size=1
+                      00247 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:3265:pic14_mov2w_regOrLit
+                      00248         .line   29; "Display.c" if (DISP_Update_Counter < DISP_UPDATE_PERIOD_MS)
+0004   3014           00249         MOVLW   0x14
+                      00250 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:3432:genCmp
+                      00251 ;;      1009
+                      00252 ;;      1028  _DISP_Update_DISP_Update_Counter_1_20   offset=0
+                      00253         .line   31; "Display.c" return;
+0005   02??           00254         SUBWF   _DISP_Update_DISP_Update_Counter_1_20,W
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE  6
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00255         .line   33; "Display.c" DISP_Update_Counter = 0;
+0006   1C03           00256         BTFSS   STATUS,0
+0007   2???           00257         GOTO    _00111_DS_
+0008   01??           00258         CLRF    _DISP_Update_DISP_Update_Counter_1_20
+                      00259         .line   38; "Display.c" SSD_SetSymbol(SSD_HUNDREDS, CNT_GetCounter()/100);
+0009   ???? ????      00260         PAGESEL _CNT_GetCounter
+                      00261 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+000B   2???           00262         CALL    _CNT_GetCounter
+                      00263 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+000C   ???? ????      00264         PAGESEL $
+                      00265 ;;      694 register type nRegs=2
+                      00266 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1907:assignResultValue *{*
+                      00267 ;; ***  assignResultValue  1909
+                      00268 ;;      line = 1911 result -=-, size=0, left AOP_REG=r0x1049, size=2, right -=-, size=0
+                      00269 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00270 ;;      1109 rIdx = r0x104A 
+000E   ???? ????      00271         BANKSEL r0x1003
+0010   00??           00272         MOVWF   r0x1003
+                      00273 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1423:get_returnvalue
+                      00274 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0011   08??           00275         MOVF    STK00,W
+                      00276 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00277 ;;      1109 rIdx = r0x1049 
+0012   00??           00278         MOVWF   r0x1004
+                      00279 ;;      2195 left AOP_REG
+                      00280 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1845:unsaveRegisters *{*
+                      00281 ;; ***  unsaveRegisters  1847
+                      00282 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00283 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00284 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00285 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2086:genCall *{*
+                      00286 ;; ***  genCall  2088
+                      00287 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1801:saveRegisters *{*
+                      00288 ;; ***  saveRegisters  1803
+                      00289 ;;      694 register type nRegs=2
+                      00290 ;;      2135 left AOP_LIT
+                      00291 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00292 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0013   3064           00293         MOVLW   0x64
+                      00294 ;;      2135 left AOP_LIT
+                      00295 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00296 ;; ***  popRegFromIdx,1042  , rIdx=0x7d
+0014   00??           00297         MOVWF   STK02
+                      00298 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00299 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0015   3000           00300         MOVLW   0x00
+                      00301 ;;      694 register type nRegs=2
+                      00302 ;;      2135 left AOP_REG
+                      00303 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00304 ;; ***  popRegFromIdx,1042  , rIdx=0x7e
+0016   00??           00305         MOVWF   STK01
+                      00306 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00307 ;; ***  mov2w  1381  offset=0
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE  7
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00308 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00309 ;;      1109 rIdx = r0x1049 
+0017   08??           00310         MOVF    r0x1004,W
+                      00311 ;;      2135 left AOP_REG
+                      00312 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00313 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0018   00??           00314         MOVWF   STK00
+                      00315 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00316 ;; ***  mov2w  1381  offset=1
+                      00317 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00318 ;;      1109 rIdx = r0x104A 
+0019   08??           00319         MOVF    r0x1003,W
+                      00320 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+001A   ???? ????      00321         PAGESEL __divuint
+                      00322 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+001C   2???           00323         CALL    __divuint
+                      00324 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+001D   ???? ????      00325         PAGESEL $
+                      00326 ;;      694 register type nRegs=2
+                      00327 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1907:assignResultValue *{*
+                      00328 ;; ***  assignResultValue  1909
+                      00329 ;;      line = 1911 result -=-, size=0, left AOP_REG=r0x1049, size=2, right -=-, size=0
+                      00330 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00331 ;;      1109 rIdx = r0x104A 
+001F   ???? ????      00332         BANKSEL r0x1003
+0021   00??           00333         MOVWF   r0x1003
+                      00334 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1423:get_returnvalue
+                      00335 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0022   08??           00336         MOVF    STK00,W
+                      00337 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00338 ;;      1109 rIdx = r0x1049 
+0023   00??           00339         MOVWF   r0x1004
+0024   00??           00340         MOVWF   r0x1005
+0025   00??           00341         MOVWF   STK00
+                      00342 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00343 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0026   3000           00344         MOVLW   0x00
+                      00345 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+0027   ???? ????      00346         PAGESEL _SSD_SetSymbol
+                      00347 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+0029   2???           00348         CALL    _SSD_SetSymbol
+                      00349 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+002A   ???? ????      00350         PAGESEL $
+                      00351 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1845:unsaveRegisters *{*
+                      00352 ;; ***  unsaveRegisters  1847
+                      00353 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00354 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2086:genCall *{*
+                      00355 ;; ***  genCall  2088
+                      00356 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1801:saveRegisters *{*
+                      00357 ;; ***  saveRegisters  1803
+                      00358 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+                      00359         .line   39; "Display.c" SSD_SetSymbol(SSD_TENS, ( CNT_GetCounter()%100)/10);
+002C   ???? ????      00360         PAGESEL _CNT_GetCounter
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE  8
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00361 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+002E   2???           00362         CALL    _CNT_GetCounter
+                      00363 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+002F   ???? ????      00364         PAGESEL $
+                      00365 ;;      694 register type nRegs=2
+                      00366 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1907:assignResultValue *{*
+                      00367 ;; ***  assignResultValue  1909
+                      00368 ;;      line = 1911 result -=-, size=0, left AOP_REG=r0x1049, size=2, right -=-, size=0
+                      00369 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00370 ;;      1109 rIdx = r0x104A 
+0031   ???? ????      00371         BANKSEL r0x1003
+0033   00??           00372         MOVWF   r0x1003
+                      00373 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1423:get_returnvalue
+                      00374 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0034   08??           00375         MOVF    STK00,W
+                      00376 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00377 ;;      1109 rIdx = r0x1049 
+0035   00??           00378         MOVWF   r0x1004
+                      00379 ;;      2195 left AOP_REG
+                      00380 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1845:unsaveRegisters *{*
+                      00381 ;; ***  unsaveRegisters  1847
+                      00382 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00383 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00384 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00385 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2086:genCall *{*
+                      00386 ;; ***  genCall  2088
+                      00387 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1801:saveRegisters *{*
+                      00388 ;; ***  saveRegisters  1803
+                      00389 ;;      694 register type nRegs=2
+                      00390 ;;      2135 left AOP_LIT
+                      00391 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00392 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0036   3064           00393         MOVLW   0x64
+                      00394 ;;      2135 left AOP_LIT
+                      00395 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00396 ;; ***  popRegFromIdx,1042  , rIdx=0x7d
+0037   00??           00397         MOVWF   STK02
+                      00398 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00399 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0038   3000           00400         MOVLW   0x00
+                      00401 ;;      694 register type nRegs=2
+                      00402 ;;      2135 left AOP_REG
+                      00403 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00404 ;; ***  popRegFromIdx,1042  , rIdx=0x7e
+0039   00??           00405         MOVWF   STK01
+                      00406 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00407 ;; ***  mov2w  1381  offset=0
+                      00408 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00409 ;;      1109 rIdx = r0x1049 
+003A   08??           00410         MOVF    r0x1004,W
+                      00411 ;;      2135 left AOP_REG
+                      00412 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00413 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE  9
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+003B   00??           00414         MOVWF   STK00
+                      00415 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00416 ;; ***  mov2w  1381  offset=1
+                      00417 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00418 ;;      1109 rIdx = r0x104A 
+003C   08??           00419         MOVF    r0x1003,W
+                      00420 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+003D   ???? ????      00421         PAGESEL __moduint
+                      00422 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+003F   2???           00423         CALL    __moduint
+                      00424 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+0040   ???? ????      00425         PAGESEL $
+                      00426 ;;      694 register type nRegs=2
+                      00427 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1907:assignResultValue *{*
+                      00428 ;; ***  assignResultValue  1909
+                      00429 ;;      line = 1911 result -=-, size=0, left AOP_REG=r0x1049, size=2, right -=-, size=0
+                      00430 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00431 ;;      1109 rIdx = r0x104A 
+0042   ???? ????      00432         BANKSEL r0x1003
+0044   00??           00433         MOVWF   r0x1003
+                      00434 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1423:get_returnvalue
+                      00435 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0045   08??           00436         MOVF    STK00,W
+                      00437 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00438 ;;      1109 rIdx = r0x1049 
+0046   00??           00439         MOVWF   r0x1004
+                      00440 ;;      2195 left AOP_REG
+                      00441 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1845:unsaveRegisters *{*
+                      00442 ;; ***  unsaveRegisters  1847
+                      00443 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00444 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00445 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00446 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2086:genCall *{*
+                      00447 ;; ***  genCall  2088
+                      00448 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1801:saveRegisters *{*
+                      00449 ;; ***  saveRegisters  1803
+                      00450 ;;      694 register type nRegs=2
+                      00451 ;;      2135 left AOP_LIT
+                      00452 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00453 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0047   300A           00454         MOVLW   0x0a
+                      00455 ;;      2135 left AOP_LIT
+                      00456 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00457 ;; ***  popRegFromIdx,1042  , rIdx=0x7d
+0048   00??           00458         MOVWF   STK02
+                      00459 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00460 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0049   3000           00461         MOVLW   0x00
+                      00462 ;;      694 register type nRegs=2
+                      00463 ;;      2135 left AOP_REG
+                      00464 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00465 ;; ***  popRegFromIdx,1042  , rIdx=0x7e
+004A   00??           00466         MOVWF   STK01
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 10
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00467 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00468 ;; ***  mov2w  1381  offset=0
+                      00469 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00470 ;;      1109 rIdx = r0x1049 
+004B   08??           00471         MOVF    r0x1004,W
+                      00472 ;;      2135 left AOP_REG
+                      00473 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00474 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+004C   00??           00475         MOVWF   STK00
+                      00476 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00477 ;; ***  mov2w  1381  offset=1
+                      00478 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00479 ;;      1109 rIdx = r0x104A 
+004D   08??           00480         MOVF    r0x1003,W
+                      00481 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+004E   ???? ????      00482         PAGESEL __divuint
+                      00483 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+0050   2???           00484         CALL    __divuint
+                      00485 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+0051   ???? ????      00486         PAGESEL $
+                      00487 ;;      694 register type nRegs=2
+                      00488 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1907:assignResultValue *{*
+                      00489 ;; ***  assignResultValue  1909
+                      00490 ;;      line = 1911 result -=-, size=0, left AOP_REG=r0x1049, size=2, right -=-, size=0
+                      00491 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00492 ;;      1109 rIdx = r0x104A 
+0053   ???? ????      00493         BANKSEL r0x1003
+0055   00??           00494         MOVWF   r0x1003
+                      00495 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1423:get_returnvalue
+                      00496 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0056   08??           00497         MOVF    STK00,W
+                      00498 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00499 ;;      1109 rIdx = r0x1049 
+0057   00??           00500         MOVWF   r0x1004
+0058   00??           00501         MOVWF   r0x1005
+0059   00??           00502         MOVWF   STK00
+                      00503 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00504 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+005A   3001           00505         MOVLW   0x01
+                      00506 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+005B   ???? ????      00507         PAGESEL _SSD_SetSymbol
+                      00508 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+005D   2???           00509         CALL    _SSD_SetSymbol
+                      00510 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+005E   ???? ????      00511         PAGESEL $
+                      00512 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1845:unsaveRegisters *{*
+                      00513 ;; ***  unsaveRegisters  1847
+                      00514 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00515 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2086:genCall *{*
+                      00516 ;; ***  genCall  2088
+                      00517 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1801:saveRegisters *{*
+                      00518 ;; ***  saveRegisters  1803
+                      00519 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 11
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00520         .line   40; "Display.c" SSD_SetSymbol(SSD_UNITS,  CNT_GetCounter()%10);
+0060   ???? ????      00521         PAGESEL _CNT_GetCounter
+                      00522 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+0062   2???           00523         CALL    _CNT_GetCounter
+                      00524 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+0063   ???? ????      00525         PAGESEL $
+                      00526 ;;      694 register type nRegs=2
+                      00527 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1907:assignResultValue *{*
+                      00528 ;; ***  assignResultValue  1909
+                      00529 ;;      line = 1911 result -=-, size=0, left AOP_REG=r0x1049, size=2, right -=-, size=0
+                      00530 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00531 ;;      1109 rIdx = r0x104A 
+0065   ???? ????      00532         BANKSEL r0x1003
+0067   00??           00533         MOVWF   r0x1003
+                      00534 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1423:get_returnvalue
+                      00535 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0068   08??           00536         MOVF    STK00,W
+                      00537 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00538 ;;      1109 rIdx = r0x1049 
+0069   00??           00539         MOVWF   r0x1004
+                      00540 ;;      2195 left AOP_REG
+                      00541 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1845:unsaveRegisters *{*
+                      00542 ;; ***  unsaveRegisters  1847
+                      00543 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00544 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00545 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00546 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2086:genCall *{*
+                      00547 ;; ***  genCall  2088
+                      00548 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1801:saveRegisters *{*
+                      00549 ;; ***  saveRegisters  1803
+                      00550 ;;      694 register type nRegs=2
+                      00551 ;;      2135 left AOP_LIT
+                      00552 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00553 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+006A   300A           00554         MOVLW   0x0a
+                      00555 ;;      2135 left AOP_LIT
+                      00556 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00557 ;; ***  popRegFromIdx,1042  , rIdx=0x7d
+006B   00??           00558         MOVWF   STK02
+                      00559 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00560 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+006C   3000           00561         MOVLW   0x00
+                      00562 ;;      694 register type nRegs=2
+                      00563 ;;      2135 left AOP_REG
+                      00564 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00565 ;; ***  popRegFromIdx,1042  , rIdx=0x7e
+006D   00??           00566         MOVWF   STK01
+                      00567 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00568 ;; ***  mov2w  1381  offset=0
+                      00569 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00570 ;;      1109 rIdx = r0x1049 
+006E   08??           00571         MOVF    r0x1004,W
+                      00572 ;;      2135 left AOP_REG
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 12
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00573 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00574 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+006F   00??           00575         MOVWF   STK00
+                      00576 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00577 ;; ***  mov2w  1381  offset=1
+                      00578 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00579 ;;      1109 rIdx = r0x104A 
+0070   08??           00580         MOVF    r0x1003,W
+                      00581 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+0071   ???? ????      00582         PAGESEL __moduint
+                      00583 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+0073   2???           00584         CALL    __moduint
+                      00585 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+0074   ???? ????      00586         PAGESEL $
+                      00587 ;;      694 register type nRegs=2
+                      00588 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1907:assignResultValue *{*
+                      00589 ;; ***  assignResultValue  1909
+                      00590 ;;      line = 1911 result -=-, size=0, left AOP_REG=r0x1049, size=2, right -=-, size=0
+                      00591 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00592 ;;      1109 rIdx = r0x104A 
+0076   ???? ????      00593         BANKSEL r0x1003
+0078   00??           00594         MOVWF   r0x1003
+                      00595 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1423:get_returnvalue
+                      00596 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0079   08??           00597         MOVF    STK00,W
+                      00598 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00599 ;;      1109 rIdx = r0x1049 
+007A   00??           00600         MOVWF   r0x1004
+007B   00??           00601         MOVWF   r0x1005
+007C   00??           00602         MOVWF   STK00
+                      00603 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00604 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+007D   3002           00605         MOVLW   0x02
+                      00606 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+007E   ???? ????      00607         PAGESEL _SSD_SetSymbol
+                      00608 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+0080   2???           00609         CALL    _SSD_SetSymbol
+                      00610 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+0081   ???? ????      00611         PAGESEL $
+                      00612 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1845:unsaveRegisters *{*
+                      00613 ;; ***  unsaveRegisters  1847
+                      00614 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00615 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      00616 ;; ***  genLabel  2763
+                      00617 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00618 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2528:genEndFunction *{*
+                      00619 ;; ***  genEndFunction  2530
+0083                  00620 _00111_DS_
+0083   0008           00621         RETURN  
+                      00622 ; exit point of _DISP_Update
+                      00623 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7426:genpic14Code *{*
+                      00624 
+                      00625 ;***
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 13
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00626 ;  pBlock Stats: dbName = C
+                      00627 ;***
+                      00628 ;entry:  _DISP_Init     ;Function start
+                      00629 ; 2 exit points
+                      00630 ;has an exit
+                      00631 ;functions called:
+                      00632 ;   _SSD_Init
+                      00633 ;   _SSD_Init
+                      00634 ;   _SSD_Init
+                      00635 ;   _SSD_Init
+                      00636 ;   _SSD_Init
+                      00637 ;   _SSD_Init
+                      00638 ;2 compiler assigned registers:
+                      00639 ;   STK01
+                      00640 ;   STK00
+                      00641 ;; Starting pCode block
+                      00642 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00643 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      00644 ;; ***  genLabel  2763
+                      00645 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00646 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2340:genFunction *{*
+                      00647 ;; ***  genFunction  2342 curr label offset=0previous max_key=0 
+0084                  00648 _DISP_Init      ;Function start
+                      00649 ; 2 exit points
+                      00650 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00651 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00652 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00653 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00654 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2086:genCall *{*
+                      00655 ;; ***  genCall  2088
+                      00656 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1801:saveRegisters *{*
+                      00657 ;; ***  saveRegisters  1803
+                      00658 ;;      2135 left AOP_LIT
+                      00659 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00660 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+                      00661         .line   15; "Display.c" SSD_Init(SSD_HUNDREDS, SSD_OFF, SSD_0);
+0084   3000           00662         MOVLW   0x00
+                      00663 ;;      2135 left AOP_LIT
+                      00664 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00665 ;; ***  popRegFromIdx,1042  , rIdx=0x7e
+0085   00??           00666         MOVWF   STK01
+                      00667 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00668 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0086   3000           00669         MOVLW   0x00
+                      00670 ;;      2135 left AOP_LIT
+                      00671 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00672 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0087   00??           00673         MOVWF   STK00
+                      00674 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00675 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0088   3000           00676         MOVLW   0x00
+                      00677 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+0089   ???? ????      00678         PAGESEL _SSD_Init
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 14
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00679 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+008B   2???           00680         CALL    _SSD_Init
+                      00681 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+008C   ???? ????      00682         PAGESEL $
+                      00683 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1845:unsaveRegisters *{*
+                      00684 ;; ***  unsaveRegisters  1847
+                      00685 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00686 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00687 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00688 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00689 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2086:genCall *{*
+                      00690 ;; ***  genCall  2088
+                      00691 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1801:saveRegisters *{*
+                      00692 ;; ***  saveRegisters  1803
+                      00693 ;;      2135 left AOP_LIT
+                      00694 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00695 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+                      00696         .line   16; "Display.c" SSD_Init(SSD_TENS, SSD_OFF, SSD_0);
+008E   3000           00697         MOVLW   0x00
+                      00698 ;;      2135 left AOP_LIT
+                      00699 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00700 ;; ***  popRegFromIdx,1042  , rIdx=0x7e
+008F   00??           00701         MOVWF   STK01
+                      00702 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00703 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0090   3000           00704         MOVLW   0x00
+                      00705 ;;      2135 left AOP_LIT
+                      00706 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00707 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0091   00??           00708         MOVWF   STK00
+                      00709 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00710 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+0092   3001           00711         MOVLW   0x01
+                      00712 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+0093   ???? ????      00713         PAGESEL _SSD_Init
+                      00714 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+0095   2???           00715         CALL    _SSD_Init
+                      00716 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+0096   ???? ????      00717         PAGESEL $
+                      00718 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1845:unsaveRegisters *{*
+                      00719 ;; ***  unsaveRegisters  1847
+                      00720 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00721 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00722 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00723 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00724 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2086:genCall *{*
+                      00725 ;; ***  genCall  2088
+                      00726 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1801:saveRegisters *{*
+                      00727 ;; ***  saveRegisters  1803
+                      00728 ;;      2135 left AOP_LIT
+                      00729 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00730 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+                      00731         .line   17; "Display.c" SSD_Init(SSD_UNITS, SSD_OFF, SSD_0);
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 15
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0098   3000           00732         MOVLW   0x00
+                      00733 ;;      2135 left AOP_LIT
+                      00734 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00735 ;; ***  popRegFromIdx,1042  , rIdx=0x7e
+0099   00??           00736         MOVWF   STK01
+                      00737 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00738 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+009A   3000           00739         MOVLW   0x00
+                      00740 ;;      2135 left AOP_LIT
+                      00741 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2143:genCall
+                      00742 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+009B   00??           00743         MOVWF   STK00
+                      00744 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00745 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1361:mov2w_op
+009C   3002           00746         MOVLW   0x02
+                      00747 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2173:genCall
+009D   ???? ????      00748         PAGESEL _SSD_Init
+                      00749 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2175:genCall
+009F   2???           00750         CALL    _SSD_Init
+                      00751 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2181:genCall
+00A0   ???? ????      00752         PAGESEL $
+                      00753 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1845:unsaveRegisters *{*
+                      00754 ;; ***  unsaveRegisters  1847
+                      00755 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00756 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      00757 ;; ***  genLabel  2763
+                      00758 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00759 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2528:genEndFunction *{*
+                      00760 ;; ***  genEndFunction  2530
+00A2   0008           00761         RETURN  
+                      00762 ; exit point of _DISP_Init
+                      00763 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7426:genpic14Code *{*
+                      00764 
+                      00765 
+                      00766 ;       code size estimation:
+                      00767 ;          95+   34 =   129 instructions (  326 byte)
+                      00768 
+                      00769         end
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADCS2                             00000006
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CIS                               00000003
+CKE                               00000006
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CKP                               00000004
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000009C
+CMIE                              00000006
+CMIF                              00000006
+CREN                              00000004
+CSRC                              00000007
+CVR0                              00000000
+CVR1                              00000001
+CVR2                              00000002
+CVR3                              00000003
+CVRCON                            0000009D
+CVREN                             00000007
+CVROE                             00000006
+CVRR                              00000005
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+D_A                               00000005
+D_NOT_A                           00000005
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+GO_NOT_DONE                       00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+OPTION_REG                        00000081
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSAVE                             00000000
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+SSAVE                             00000000
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+STK00                             00000000
+STK01                             00000000
+STK02                             00000000
+STK03                             00000000
+STK04                             00000000
+STK05                             00000000
+STK06                             00000000
+STK07                             00000000
+STK08                             00000000
+STK09                             00000000
+STK10                             00000000
+STK11                             00000000
+STK12                             00000000
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 21
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+W                                 00000000
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 22
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WSAVE                             00000000
+Z                                 00000002
+_00111_DS_                        00000083
+_ADCON0                           00000000
+_ADCON0bits                       00000000
+_ADCON1                           00000000
+_ADCON1bits                       00000000
+_ADRESH                           00000000
+_ADRESL                           00000000
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CCP1CON                          00000000
+_CCP1CONbits                      00000000
+_CCP2CON                          00000000
+_CCP2CONbits                      00000000
+_CCPR1                            00000000
+_CCPR1H                           00000000
+_CCPR1L                           00000000
+_CCPR2                            00000000
+_CCPR2H                           00000000
+_CCPR2L                           00000000
+_CMCON                            00000000
+_CMCONbits                        00000000
+_CNT_GetCounter                   00000000
+_CNT_Init                         00000000
+_CNT_Update                       00000000
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00001FFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_CVRCON                           00000000
+_CVRCONbits                       00000000
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_DEVID1                           00002006
+_DISP_Init                        00000084
+_DISP_Update                      00000000
+_DISP_Update_DISP_Update_Counter_1_20  00000003
+_DISP_Update_TestCount_1_20       00000004
+_EEADR                            00000000
+_EEADRH                           00000000
+_EECON1                           00000000
+_EECON1bits                       00000000
+_EECON2                           00000000
+_EEDATA                           00000000
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 23
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_EEDATH                           00000000
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_FSR                              00000000
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_INDF                             00000000
+_INTCON                           00000000
+_INTCONbits                       00000000
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_OPTION_REG                       00000000
+_OPTION_REGbits                   00000000
+_OS_GoToSleep                     00000000
+_OS_Init                          00000000
+_OS_Schedule                      00000000
+_OS_Start                         00000000
+_OS_Update                        00000000
+_PCL                              00000000
+_PCLATH                           00000000
+_PCON                             00000000
+_PCONbits                         00000000
+_PIE1                             00000000
+_PIE1bits                         00000000
+_PIE2                             00000000
+_PIE2bits                         00000000
+_PIR1                             00000000
+_PIR1bits                         00000000
+_PIR2                             00000000
+_PIR2bits                         00000000
+_PORTA                            00000000
+_PORTAbits                        00000000
+_PORTB                            00000000
+_PORTBbits                        00000000
+_PORTC                            00000000
+_PORTCbits                        00000000
+_PORTD                            00000000
+_PORTDbits                        00000000
+_PORTE                            00000000
+_PORTEbits                        00000000
+_PR2                              00000000
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RCREG                            00000000
+_RCSTA                            00000000
+_RCSTAbits                        00000000
+_RC_OSC                           00003FFF
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 24
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_SPBRG                            00000000
+_SSD_GetState                     00000000
+_SSD_GetSymbol                    00000000
+_SSD_Init                         00000000
+_SSD_SetState                     00000000
+_SSD_SetSymbol                    00000000
+_SSD_Update                       00000000
+_SSPADD                           00000000
+_SSPBUF                           00000000
+_SSPCON                           00000000
+_SSPCON2                          00000000
+_SSPCON2bits                      00000000
+_SSPCONbits                       00000000
+_SSPSTAT                          00000000
+_SSPSTATbits                      00000000
+_STATUS                           00000000
+_STATUSbits                       00000000
+_T1CON                            00000000
+_T1CONbits                        00000000
+_T2CON                            00000000
+_T2CONbits                        00000000
+_TMR0                             00000000
+_TMR1                             00000000
+_TMR1H                            00000000
+_TMR1L                            00000000
+_TMR2                             00000000
+_TRISA                            00000000
+_TRISAbits                        00000000
+_TRISB                            00000000
+_TRISBbits                        00000000
+_TRISC                            00000000
+_TRISCbits                        00000000
+_TRISD                            00000000
+_TRISDbits                        00000000
+_TRISE                            00000000
+_TRISEbits                        00000000
+_TXREG                            00000000
+_TXSTA                            00000000
+_TXSTAbits                        00000000
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FFD
+__16F877A                         00000001
+__CODE_END                        00001FFF
+__CODE_START                      00000000
+__COMMON_RAM_END                  0000007F
+__COMMON_RAM_START                00000070
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\Dis   12-27-2019  16:45:01        PAGE 25
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__EEPROM_END                      000021FF
+__EEPROM_START                    00002100
+__VECTOR_INT                      00000004
+__VECTOR_RESET                    00000000
+__divuint                         00000000
+__moduint                         00000000
+_code_Display_000C                0000000C
+_code_Display_001D                0000001D
+_code_Display_002A                0000002A
+_code_Display_002F                0000002F
+_code_Display_0040                00000040
+_code_Display_0051                00000051
+_code_Display_005E                0000005E
+_code_Display_0063                00000063
+_code_Display_0074                00000074
+_code_Display_0081                00000081
+_code_Display_008C                0000008C
+_code_Display_0096                00000096
+_code_Display_00A0                000000A0
+r0x1003                           00000001
+r0x1004                           00000000
+r0x1005                           00000002
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+
